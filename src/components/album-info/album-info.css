@@ -1,0 +1,27 @@
+.center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.album-info {
+  flex-direction: column;
+}
+
+.music-info {
+  margin-top: 1rem;
+}
+
+h1,
+h3 {
+  text-align: center;
+}
+
+.album-name {
+  color: white;
+  margin-bottom: 0;
+}
+
+.music-name {
+  margin-top: 0.5rem;
+}

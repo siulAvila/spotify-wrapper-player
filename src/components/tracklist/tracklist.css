@@ -1,0 +1,17 @@
+.track {
+  display: flex;
+  padding: 1rem;
+}
+
+.track-index {
+  width: 5%;
+}
+
+.track-name {
+  width: 75%;
+}
+
+.track-time {
+  width: 20%;
+  text-align: end;
+}

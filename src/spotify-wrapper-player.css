@@ -1,0 +1,36 @@
+body {
+  height: 100vh;
+  margin: 0;
+  background-image: linear-gradient(grey, #121212);
+  font-family: 'Lato', sans-serif;
+  box-sizing: border-box;
+  color: #a0a0a0;
+  font-size: 16px;
+}
+
+.spotiy-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.side-nav {
+  width: 20vw;
+}
+
+.main-content {
+  width: 80vw;
+  display: flex;
+  flex-direction: row;
+  padding: 1rem;
+  margin-top: 5rem;
+}
+
+album-info {
+  width: 20vw;
+}
+
+track-list {
+  width: 80vw;
+  padding: 1rem;
+  margin-left: 6rem;
+}
