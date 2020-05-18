@@ -34,9 +34,9 @@ export default class TrackList extends HTMLElement {
       .join('')
 
     this.shadow.innerHTML = ` <style> @import './styles.css</style> 
-                              <div class="track-list">
+                            
                                 ${trackList}
-                              </div>`
+                              `
     this.eventClickTrack()
   }
 
@@ -46,21 +46,32 @@ export default class TrackList extends HTMLElement {
       track.addEventListener('click', (event) => {
         const { target } = event
         const { parentNode } = target
-        const audioPreviewUrl =
-          parentNode.getAttribute('data-track-preview') || target.getAttribute('data-track-preview')
-        this.audioPlayer(audioPreviewUrl)
+        console.log(parentNode.shadowRoot === undefined)
+
+        const targetTrack = parentNode.shadowRoot === undefined ? event.target : parentNode
+        const audioPreviewUrl = targetTrack.getAttribute('data-track-preview')
+        this.audioPlayer(audioPreviewUrl, targetTrack)
       })
     })
   }
 
-  audioPlayer(audioPreviewUrl) {
-    if (this.audioObj) {
+  audioPlayer(audioPreviewUrl, targetTrack) {
+    if (targetTrack.classList.contains('active')) {
       this.audioObj.pause()
+    } else {
+      if (this.audioObj) {
+        this.audioObj.pause()
+      }
+
+      this.audioObj = new Audio(audioPreviewUrl)
+      targetTrack.classList.add('active')
+      this.audioObj.addEventListener('pause', () => {
+        targetTrack.classList.remove('active')
+      })
+      setTimeout(() => {
+        this.audioObj.play()
+      }, 500)
     }
-    this.audioObj = new Audio(audioPreviewUrl)
-    setTimeout(() => {
-      this.audioObj.play()
-    }, 500)
   }
 }
 
