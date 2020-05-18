@@ -1,8 +1,9 @@
 # spotify-wrapper-player
 
+Player of Spotify-wrapper-test-tdd library. Developed with WebComponents, JS, CSS and webpack
+
 ![Spotify Wrapper Player Screenshot](assets/screenshot.png)
 
-Player of Spotify-wrapper-test-tdd library. Developed with WebComponents, JS, CSS and webpack
 
 ## Browser Support
 
