@@ -1,6 +1,16 @@
+.track-list {
+  height: 80vh;
+  overflow-y: auto;
+}
+
 .track {
   display: flex;
   padding: 1rem;
+}
+
+.track:hover {
+  cursor: pointer;
+  background: rgba(29, 32, 40, 0.61);
 }
 
 .track-index {

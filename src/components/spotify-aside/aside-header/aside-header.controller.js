@@ -1,5 +1,7 @@
 import './aside-header.css'
 
+import { debounce } from '../../../utils/utils'
+
 const template = document.createElement('template')
 
 template.innerHTML = `
@@ -47,6 +49,7 @@ export default class AsideHeader extends HTMLElement {
     const labelInput = this.shadow.getElementById('form-label')
     this.inputFocus(formInput, labelInput)
     this.inputBlur(formInput, labelInput)
+    this.inputKeyUp(formInput)
   }
 
   inputFocus(formInput, labelInput) {
@@ -57,8 +60,28 @@ export default class AsideHeader extends HTMLElement {
 
   inputBlur(formInput, labelInput) {
     formInput.addEventListener('blur', () => {
-      labelInput.classList.remove('form-label-on-Focus')
+      if (!formInput.value) labelInput.classList.remove('form-label-on-Focus')
     })
+  }
+
+  inputKeyUp(formInput) {
+    const debouceEmitValueEvent = debounce(this.emitInputValueEvent.bind(this), 1000)
+    formInput.addEventListener('keyup', (event) => {
+      const inputValue = event.target.value
+      if (inputValue) debouceEmitValueEvent(inputValue)
+    })
+  }
+
+  emitInputValueEvent(searchInputValue) {
+    const inputSearchEvent = new CustomEvent('inputSearch', {
+      bubbles: true, // bubble event to containing elements
+      composed: true, // let the event pass through the shadowDOM boundary
+      detail: {
+        searchInputValue,
+      },
+    })
+
+    this.dispatchEvent(inputSearchEvent)
   }
 }
 

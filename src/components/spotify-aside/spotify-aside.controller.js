@@ -10,17 +10,29 @@ style.textContent = "@import './styles.css';"
 
 template.innerHTML = `
 <div class="aside">
-  <aside-header></aside-header>
-  <album-list></album-list>
+  <aside-header id="header"></aside-header>
+  <album-list albums=""></album-list>
 </div>
 `
 export default class SpotifyAside extends HTMLElement {
   constructor() {
     super()
-
     this.shadow = this.attachShadow({ mode: 'open' })
     this.shadow.appendChild(style)
     this.shadow.appendChild(template.content.cloneNode(true))
+  }
+
+  connectedCallback() {}
+
+  static get observedAttributes() {
+    return ['data']
+  }
+
+  attributeChangedCallback(attributeName, oldValue, newValue) {
+    if (newValue) {
+      const albumListComponent = this.shadow.querySelector('album-list')
+      albumListComponent.setAttribute('albums', newValue)
+    }
   }
 }
 

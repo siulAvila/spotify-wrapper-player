@@ -4,7 +4,7 @@
   "description": "Player of the spotify-wrapper-test-tdd",
   "main": "index.js",
   "scripts": {
-    "test": "npm test",
+    "test": "",
     "lint": "npx eslint src --ext .js --fix",
     "build": "npx webpack",
     "start": "npx webpack-dev-server"
@@ -53,6 +53,7 @@
   },
   "dependencies": {
     "@babel/plugin-transform-runtime": "^7.9.6",
-    "@babel/runtime": "^7.9.6"
+    "@babel/runtime": "^7.9.6",
+    "spotify-wrapper-test-tdd": "^1.1.3"
   }
 }

@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
-  entry: './src/spotify-wrapper-player.controller.js',
+  entry: './src/spotify-wrapper-player.module.js',
   mode: 'development',
   output: {
     path: path.join(__dirname, 'dist'),
