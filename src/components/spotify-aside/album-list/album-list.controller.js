@@ -119,8 +119,8 @@ export default class AlbumList extends HTMLElement {
 
   dispatchEventClickedAlbum(albumId) {
     const clickeAlbumEvent = new CustomEvent('clickedAlbum', {
-      bubbles: true, // bubble event to containing elements
-      composed: true, // let the event pass through the shadowDOM boundary
+      bubbles: true,
+      composed: true,
       detail: {
         albumId,
       },

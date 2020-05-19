@@ -32,6 +32,7 @@ export default class SpotifyMain extends HTMLElement {
         flex-direction: row;
         padding: 1rem;
         margin-top: 5rem;
+        
     }
     album-info {
         width: 20vw;
@@ -42,7 +43,6 @@ export default class SpotifyMain extends HTMLElement {
         height: 80vh;
         overflow-y: auto;
         padding: 1rem;
-        margin-left: 6rem;
     }
     ::-webkit-scrollbar-track {
       -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
@@ -56,6 +56,19 @@ export default class SpotifyMain extends HTMLElement {
     
     ::-webkit-scrollbar-thumb {
       background-color: #000000;
+    }
+
+    @media(min-width:600px){
+      track-list {
+        margin-left: 6rem;
+      }
+    }
+
+    @media(max-width:600px){
+      .spotify-main{
+        flex-direction: column;
+        align-items:center;
+      }
     }
     
       `

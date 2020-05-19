@@ -67,6 +67,7 @@ export default class AlbumInfo extends HTMLElement {
     .artist-name {
       margin-top: 0.5rem;
     }
+
     
     `
     return style

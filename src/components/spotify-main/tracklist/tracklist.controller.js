@@ -54,11 +54,11 @@ export default class TrackList extends HTMLElement {
     }
     
     .track-index {
-      width: 5%;
+      width: 10%;
     }
     
     .track-name {
-      width: 75%;
+      width: 70%;
     }
     
     .track-time {

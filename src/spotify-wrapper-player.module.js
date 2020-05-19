@@ -9,7 +9,7 @@ import styles from './spotify-wrapper-player.css'
 
 export const spotify = new SpotifyWrapper({
   apiKey:
-    'BQANkVco2yn86diJnlguCWFfob0EksetjcXN8aJLkqLydz319h7y7XNygg0PTJZXGdiwCNo8E3ZzCviLYDUc8vpv1nwyfGWdp3vVHWZuEraYImg6YuflEqi_J9XuQkzIjMaBeYJBN1XWsQPjU6Mg64Fn7Z1TqUI2ok8',
+    'BQCPwhV7kPChW8Q4IreMGj4lz3gF-kt5NMqgxH6QrXRq5eRqcbwiwf3Wt9D2I3fGmedtVW4WZD1UtpjzIWJZJ9NLBusyXfS2tYXQgmpXMzuetenXRNlhmwU8_pKO8tB1QLNcdRGK8eBAz_osdiNeGoxMnwVPaRWyhXs',
 })
 
 export default { spotifyWrapperPlayer, spotifyMain, spotifyAside }

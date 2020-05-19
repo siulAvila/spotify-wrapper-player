@@ -119,24 +119,24 @@ export default class AsideHeader extends HTMLElement {
   eventListeners() {
     const formInput = this.shadow.getElementById('search-input')
     const labelInput = this.shadow.getElementById('form-label')
-    this.inputFocus(formInput, labelInput)
-    this.inputBlur(formInput, labelInput)
-    this.inputKeyUp(formInput)
+    this.inputFocusEventListener(formInput, labelInput)
+    this.inputBlurEventListener(formInput, labelInput)
+    this.inputKeyUpEventListener(formInput)
   }
 
-  inputFocus(formInput, labelInput) {
+  inputFocusEventListener(formInput, labelInput) {
     formInput.addEventListener('focus', () => {
       labelInput.classList.add('form-label-on-Focus')
     })
   }
 
-  inputBlur(formInput, labelInput) {
+  inputBlurEventListener(formInput, labelInput) {
     formInput.addEventListener('blur', () => {
       if (!formInput.value) labelInput.classList.remove('form-label-on-Focus')
     })
   }
 
-  inputKeyUp(formInput) {
+  inputKeyUpEventListener(formInput) {
     const debouceEmitValueEvent = debounce(this.emitInputValueEvent.bind(this), 1000)
     formInput.addEventListener('keyup', (event) => {
       const inputValue = event.target.value
@@ -146,8 +146,8 @@ export default class AsideHeader extends HTMLElement {
 
   emitInputValueEvent(searchInputValue) {
     const inputSearchEvent = new CustomEvent('inputSearch', {
-      bubbles: true, // bubble event to containing elements
-      composed: true, // let the event pass through the shadowDOM boundary
+      bubbles: true,
+      composed: true,
       detail: {
         searchInputValue,
       },

@@ -48,6 +48,23 @@ export default class SpotifyWrapperPlayer extends HTMLElement {
 
                           .main-content {
                             width: 80vw;
+                            height:100vh;
+                            background-image: linear-gradient(grey, #121212);
+
+                          }
+
+                          @media (max-width: 600px) {
+                            .spotify-wrapper {
+                              display: flex;
+                              flex-direction: column;
+                            }
+                            
+                            .side-nav {
+                              width: 100vw;
+                            }
+                            .main-content {
+                              width: 100vw;
+                            }
                           }
                         `
     return style
