@@ -3,11 +3,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
-  entry: './src/spotify-wrapper-player.module.js',
+  entry: './index',
   mode: 'development',
+  devtool: 'source-map',
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js',
+    libraryTarget: 'umd',
+    library: 'spotifyWrapperPlayer',
   },
   devServer: {
     contentBase: path.join(__dirname, 'dist'),

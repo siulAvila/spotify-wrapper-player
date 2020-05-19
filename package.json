@@ -1,12 +1,15 @@
 {
   "name": "spotify-wrapper-player",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Player of the spotify-wrapper-test-tdd",
-  "main": "index.js",
+  "main": "lib/spotify-wrapper-player.module.js",
   "scripts": {
     "test": "",
     "lint": "npx eslint src --ext .js --fix",
-    "build": "npx webpack",
+    "build": "npx babel src --out-dir lib",
+    "build:umd": "npx webpack --output-filename spotify-wrapper-player.umd.js",
+    "build:umd:min": "npx webpack --output-filename spotify-wrapper-player.umd.min.js -p",
+    "build:all": "npm run build && npm run build:umd && npm run build:umd:min",
     "start": "npx webpack-dev-server"
   },
   "repository": {
@@ -23,6 +26,10 @@
     "tdd",
     "javascript"
   ],
+  "files": [
+    "dist",
+    "lib"
+  ],
   "author": "Luis Fernando <luisfernandoavila92@gmail.com>",
   "license": "MIT",
   "bugs": {
@@ -31,7 +38,8 @@
   "homepage": "https://github.com/siulAvila/spotify-wrapper-player#readme",
   "devDependencies": {
     "@babel/core": "^7.9.6",
-    "@babel/preset-env": "^7.9.6",
+    "@babel/cli": "^7.8.4",
+    "@babel/plugin-transform-runtime": "^7.9.6",
     "babel-loader": "^8.1.0",
     "css-loader": "^3.5.3",
     "eslint": "^7.0.0",
@@ -53,6 +61,7 @@
   },
   "dependencies": {
     "@babel/plugin-transform-runtime": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
     "@babel/runtime": "^7.9.6",
     "spotify-wrapper-test-tdd": "^1.1.3"
   }
