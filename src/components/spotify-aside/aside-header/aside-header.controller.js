@@ -1,16 +1,24 @@
-import './aside-header.css'
-
 import { debounce } from '../../../utils/utils'
 
-const template = document.createElement('template')
+export default class AsideHeader extends HTMLElement {
+  constructor() {
+    super()
+    this.shadow = this.attachShadow({ mode: 'open' })
+    this.render()
+  }
 
-template.innerHTML = `
+  connectedCallback() {}
 
-<style>
-@import './styles.css';
-</style>
+  render() {
+    const template = this.createTemplate()
+    const style = this.createStyle()
+    this.shadow.innerHTML = template
+    this.shadow.appendChild(style)
+    this.eventListeners()
+  }
 
-<header>
+  createTemplate() {
+    const template = `<header>
 
     <div class="header-info">
         <svg class="spotify-icon" viewBox="0 0 167.5 167.5">
@@ -31,17 +39,81 @@ template.innerHTML = `
     </div>
 
 </header>`
-
-export default class AsideHeader extends HTMLElement {
-  constructor() {
-    super()
-
-    this.shadow = this.attachShadow({ mode: 'open' })
-    this.shadow.appendChild(template.content.cloneNode(true))
+    return template
   }
 
-  connectedCallback() {
-    this.eventListeners()
+  createStyle() {
+    const style = document.createElement('style')
+    style.textContent = `
+
+    .aside-header {
+      color: white;
+    }
+    .header-info {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      padding-top: 2rem;
+    }
+    .spotify-icon {
+      height: 2rem;
+      width: 2rem;
+    }
+    
+    .aside-title {
+      font-size: 1.5rem;
+    }
+    
+    .search-form {
+      display: flex;
+      justify-content: center;
+      padding: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .form-group {
+      position: relative;
+      width: 100%;
+    }
+    
+    #search-input {
+      width: 100%;
+      font-size:1.5rem;
+      background: inherit;
+      border: 0;
+      box-shadow: 0 1px 0 0 #e5e5e5;
+      color: white;
+      box-sizing: border-box;
+      outline: 0;
+    }
+
+    #search-input:focus{
+      color: #1ed760
+    }
+
+    #form-label {
+      position: absolute;
+      width: 100%;
+      bottom: 1rem;
+      color: grey;
+      animation: ease-in;
+      transition: transform 150ms ease-out, font-size 150ms ease-out;
+    }
+    
+    .form-label-on-Focus {
+      transform: translateY(-120%);
+      font-size: 0.75rem;
+    }
+    
+    .search-icon {
+      height: 24px;
+      width: 24px;
+      position: absolute;
+      right: 5%;
+      bottom: 10px;
+    }
+    `
+    return style
   }
 
   eventListeners() {
@@ -80,7 +152,8 @@ export default class AsideHeader extends HTMLElement {
         searchInputValue,
       },
     })
-
+    const label = this.shadow.querySelector('#search-input')
+    label.classList.add('active')
     this.dispatchEvent(inputSearchEvent)
   }
 }

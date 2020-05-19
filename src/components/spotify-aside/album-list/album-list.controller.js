@@ -1,7 +1,3 @@
-import './album-list.css'
-
-let albumList = document.createElement('ul')
-
 export default class AlbumList extends HTMLElement {
   constructor() {
     super()
@@ -15,11 +11,22 @@ export default class AlbumList extends HTMLElement {
   }
 
   attributeChangedCallback(attributeName, oldValue, newValue) {
-    if (newValue) this.render(JSON.parse(newValue))
+    if (newValue) {
+      const albums = JSON.parse(newValue)
+      this.render(albums)
+    }
   }
 
   render(albums) {
-    albumList = albums
+    const template = this.createTemplate(albums)
+    const style = this.createStyle()
+    this.shadow.innerHTML = template
+    this.shadow.appendChild(style)
+    this.eventListener()
+  }
+
+  createTemplate(albums) {
+    const li = albums
       .map((album) => {
         return `<li id="item" data-album-id=${album.id}  class="list-item">
                   <div  data-album-id=${album.id} class="item-album"> 
@@ -35,10 +42,68 @@ export default class AlbumList extends HTMLElement {
       })
       .join('')
 
-    this.shadow.innerHTML = `
-    <style> @import './styles.css'</style>
-  <ul class="album-list">${albumList}</ul>`
-    this.eventListener()
+    const template = `<ul class="album-list">${li}</ul>`
+
+    return template
+  }
+
+  createStyle() {
+    const style = document.createElement('style')
+    style.textContent = `
+    .album-list {
+      color: white;
+      height: 75vh;
+      overflow-y: auto;
+      padding: 0;
+    }
+    
+    ul {
+      list-style: none;
+    }
+    
+   
+    
+    .list-item {
+      padding: 1rem;
+      transition: opacity 0.4s;
+    }
+    
+    .item-album {
+      display: flex;
+      flex-direction: row;
+      justify-content: start;
+      align-items: center;
+    }
+    
+    .item-album-cover {
+      margin: 0;
+      width: 30%;
+    }
+    
+    .list-item:nth-of-type(even) {
+      background: rgba(29, 32, 40, 0.61);
+    }
+    
+    .list-item:hover {
+      opacity: 0.3;
+      cursor: pointer;
+    }
+
+    ::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      background-color: #f5f5f5;
+    }
+    
+    ::-webkit-scrollbar {
+      width: 2px;
+      background-color: #f5f5f5;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background-color: #000000;
+    }
+    `
+    return style
   }
 
   eventListener() {

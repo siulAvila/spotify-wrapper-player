@@ -1,8 +1,4 @@
-import { convertMsToSeconds } from '../../utils/utils'
-
-import styles from './tracklist.css'
-
-let trackList = document.createElement('div')
+import { convertMsToSeconds } from '../../../utils/utils'
 
 export default class TrackList extends HTMLElement {
   constructor() {
@@ -16,28 +12,67 @@ export default class TrackList extends HTMLElement {
 
   attributeChangedCallback(attributeName, oldVal, newVal) {
     if (newVal) {
-      this.render(JSON.parse(newVal))
+      const tracks = JSON.parse(newVal)
+      this.render(tracks)
     }
   }
 
   render(tracks) {
-    trackList = tracks
+    const template = this.createTemplate(tracks)
+    const style = this.createStyle()
+    this.shadow.innerHTML = template
+    this.shadow.appendChild(style)
+    this.eventClickTrack()
+  }
+
+  createTemplate(tracks) {
+    const template = tracks
       .map((track) => {
         return `
-        <div  id="track" class="track" data-track-preview=${track.preview_url}>
-              <span class="track-index"> ${track.track_number} </span>
-              <span class="track-name"> ${track.name} </span>
-              <span class="track-time" > ${convertMsToSeconds(track.duration_ms)} </span>
-       </div>
-            `
+      <div  id="track" class="track" data-track-preview=${track.preview_url}>
+            <span class="track-index"> ${track.track_number} </span>
+            <span class="track-name"> ${track.name} </span>
+            <span class="track-time" > ${convertMsToSeconds(track.duration_ms)} </span>
+     </div>
+          `
       })
       .join('')
+    return template
+  }
 
-    this.shadow.innerHTML = ` <style> @import './styles.css</style> 
-                            
-                                ${trackList}
-                              `
-    this.eventClickTrack()
+  createStyle() {
+    const style = document.createElement('style')
+    style.textContent = `
+    .track {
+      display: flex;
+      padding: 1rem;
+    }
+    
+    .track:hover {
+      cursor: pointer;
+      background: rgba(29, 32, 40, 0.61);
+    }
+    
+    .track-index {
+      width: 5%;
+    }
+    
+    .track-name {
+      width: 75%;
+    }
+    
+    .track-time {
+      width: 20%;
+      text-align: end;
+    }
+    
+    .active {
+      color: green;
+    }
+
+    
+    `
+    return style
   }
 
   eventClickTrack() {
@@ -46,7 +81,6 @@ export default class TrackList extends HTMLElement {
       track.addEventListener('click', (event) => {
         const { target } = event
         const { parentNode } = target
-        console.log(parentNode.shadowRoot === undefined)
 
         const targetTrack = parentNode.shadowRoot === undefined ? event.target : parentNode
         const audioPreviewUrl = targetTrack.getAttribute('data-track-preview')
