@@ -1,8 +1,8 @@
-import spotifyWrapperPlayerModule from './spotify-wrapper-player.module'
+import { spotify } from './spotify-wrapper-player.module'
 
 import { formatToAlbums, formatToTracks } from './utils/utils'
 
-class SpotifyWrapperPlayer extends HTMLElement {
+export default class SpotifyWrapperPlayer extends HTMLElement {
   constructor() {
     super()
     this.shadow = this.attachShadow({ mode: 'open' })
@@ -36,7 +36,20 @@ class SpotifyWrapperPlayer extends HTMLElement {
 
   createStyle() {
     const style = document.createElement('style')
-    style.textContent = `@import './styles.css'`
+    style.textContent = `
+                          .spotify-wrapper {
+                            display: flex;
+                            flex-direction: row;
+                          }
+
+                          .side-nav {
+                            width: 20vw;
+                          }
+
+                          .main-content {
+                            width: 80vw;
+                          }
+                        `
     return style
   }
 
@@ -53,7 +66,7 @@ class SpotifyWrapperPlayer extends HTMLElement {
   }
 
   getAlbumList(searchInputValue) {
-    spotifyWrapperPlayerModule.search
+    spotify.search
       .searchItems(searchInputValue, 'album')
       .then((data) => {
         const aside = this.shadow.getElementById('aside')
@@ -63,7 +76,7 @@ class SpotifyWrapperPlayer extends HTMLElement {
   }
 
   getSelectedAlbum(albumId) {
-    spotifyWrapperPlayerModule.albums
+    spotify.albums
       .searchAlbumsById(albumId)
       .then((data) => {
         const main = this.shadow.querySelector('spotify-main')
